@@ -1,0 +1,61 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <LangVersion>14</LangVersion>
+    <Nullable>enable</Nullable>
+    <RootNamespace>PKDen</RootNamespace>
+    <AssemblyName>PKDen</AssemblyName>
+    <Description>PKDen — Standalone Pokémon organizer powered by PKHeX</Description>
+    <ApplicationHighDpiMode>SystemAware</ApplicationHighDpiMode>
+    <ApplicationIcon>pokeball.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>false</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PKHeX.Core\PKHeX.Core.csproj" />
+    <ProjectReference Include="..\PKHeX.Drawing\PKHeX.Drawing.csproj" />
+    <ProjectReference Include="..\PKHeX.Drawing.PokeSprite\PKHeX.Drawing.PokeSprite.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="pokeball.ico" LogicalName="PKDen.pokeball.ico" />
+  </ItemGroup>
+
+  <!--
+    Embedded sprite assets — see SpriteOverrides.cs for lookup logic.
+    Each PNG is embedded with its filename as the suffix of the LogicalName so the
+    runtime can look it up via a deterministic key (PKDen.Sprites.<filename>) rather
+    than relying on MSBuild's default mangling of folder paths into resource names.
+    This also keeps the resource keys stable if the on-disk folder ever moves.
+  -->
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Sprites\*.png">
+      <LogicalName>PKDen.Sprites.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <!--
+    Embedded game-cover artwork for the save-file selector — see SaveFileSelector.cs.
+    Naming convention: <lang>_<GameVersion>.<ext> where lang is "en" or "jp" and
+    GameVersion matches the PKHeX enum name (e.g. en_RD.png, jp_SN.png, en_SW.jpg).
+    LogicalName uses the same prefix so the lookup is deterministic.
+  -->
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\GameArt\*.png">
+      <LogicalName>PKDen.GameArt.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\GameArt\*.jpg">
+      <LogicalName>PKDen.GameArt.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
