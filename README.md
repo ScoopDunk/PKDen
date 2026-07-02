@@ -1,3 +1,8 @@
+<img width="1214" height="670" alt="Screenshot 2026-06-12 191414" src="https://github.com/user-attachments/assets/3679fdbb-2d51-4270-b515-66e0aba02453" />
+
+
+
+
 PKDen is Pokémon storage and organization tool built on PKHeX. Store and organize your collection across all nine generations, and move Pokémon between your collection and your game saves.
 
 - Box-based storage with drag-and-drop organizing
